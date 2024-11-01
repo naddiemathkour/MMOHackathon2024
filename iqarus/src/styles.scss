@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  // Colors
+  --color-primary: #fffff;
+  --color-secondary: #22222;
+  --color-accent: #ccc;
+  --color-font: #00000;
+
+  // Spacing and Borders
+  --margin: 1rem 1rem;
+  --margin-single: 1rem;
+  --padding: 1rem 1rem;
+  --padding-single: 1rem;
+  --radius: 1rem;
+
+  // Font
+  --ff: "", sans-serif;
+
+  // Element Styling
+  --h1: bold 3rem/1 var(--ff);
+}
