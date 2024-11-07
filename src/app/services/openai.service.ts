@@ -7,33 +7,31 @@ import { from, map } from "rxjs";
   providedIn: 'root'
 })
 export class OpenaiService {
+  private _openai!: OpenAI;
 
-  constructor(private _openai: OpenAI) {
+  constructor() {
     this._openai = new OpenAI({
       apiKey: OpenAIEnv.API_KEY,
       dangerouslyAllowBrowser: true,
       project: OpenAIEnv.PROJECT,
-    })
+    });
   }
 
   tempConnTest() {
+    console.log('running ai test...')
     return from(
       this._openai.chat.completions.create({
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         messages: [
           {
             role: "system",
-            content: "You are an expert in QA testing . Your goal is to take in Acceptance Criteria and return test cases",
+            content: "You are an expert in QA tester's assistant. Your goal is to take in Acceptance Criteria and return test cases",
           },
           {
             role: "user",
-            content: `Implement a user input that only accepts 15 characters and doesn't allow numbers to be used`
+            content: `Implement a user input that only accepts 15 characters and doesn't allow numbers to be used.`
           },
         ],
-      })
-    ).pipe(
-      map((resp: any) => {
-        console.log(resp)
       })
     )
   }
