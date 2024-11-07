@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm cache clean --force
+      - npm install -g @angular/cli
+      - npm install
+
+  build:
+    commands:
+      - echo Building project...
+      - ng build --configuration production
+
+  post_build:
+    commands:
+      - echo Build complete.
+
+artifacts:
+  files:
+    - "**/*"
+  base-directory: "./dist*"
+  discard-paths: yes
