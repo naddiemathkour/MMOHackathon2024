@@ -10,6 +10,11 @@ phases:
       - npm install -g @angular/cli
       - npm install
 
+  pre_build:
+    commands:
+      - echo Changing to the correct directory where package.json is located...
+      - cd ../  # Move one level up from /codebuild/output/src681481531/src to the parent directory
+
   build:
     commands:
       - echo Building project...
