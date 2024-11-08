@@ -1,37 +1,37 @@
 {
-  "hash": "7b2a4b62",
+  "hash": "adc99e67",
   "configHash": "eed57614",
-  "lockfileHash": "57d8e75d",
-  "browserHash": "b7f5c4c6",
+  "lockfileHash": "993cf647",
+  "browserHash": "a5a40178",
   "optimized": {
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "4112a556",
+      "fileHash": "fab13f52",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "9cf540df",
+      "fileHash": "0a20ab28",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "cb4a10f6",
+      "fileHash": "15b26868",
       "needsInterop": false
     },
     "openai": {
       "src": "../../../../../../node_modules/openai/index.mjs",
       "file": "openai.js",
-      "fileHash": "b5e3b4a6",
+      "fileHash": "e928bf51",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../../../../../node_modules/rxjs/dist/esm5/index.js",
       "file": "rxjs.js",
-      "fileHash": "8e47e850",
+      "fileHash": "1eab6e2b",
       "needsInterop": false
     }
   },
