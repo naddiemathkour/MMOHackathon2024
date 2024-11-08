@@ -21,7 +21,7 @@ export class OpenaiService {
     console.log('running ai test...')
     return from(
       this._openai.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "gpt-4o-mini", //Could be changed to 3.5turbo to improve performance
         messages: [
           {
             role: "system",
