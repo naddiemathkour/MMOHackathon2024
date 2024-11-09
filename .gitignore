@@ -1,0 +1,30 @@
+# Environment files
+env/
+environments.ts
+
+# Angular specific files
+.angular/
+dist/
+*.log
+
+# Compiled TypeScript
+*.tsbuildinfo
+
+# Node modules
+node_modules/
+
+# Temporary files
+tmp/
+temp/
+
+# IDE and editor-specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# System files
+.DS_Store
+Thumbs.db

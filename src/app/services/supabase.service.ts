@@ -10,4 +10,9 @@ export class SupabaseService {
   constructor() {
     this.supabase = createClient(SupabaseEnv.API_URL, SupabaseEnv.API_KEY);
   }
+
+  async testDbConn() {
+    const resp = await this.supabase.from('test').select('*');
+    return resp;
+  }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { OpenaiService } from '../../services/openai.service';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-test',
@@ -9,14 +10,18 @@ import { OpenaiService } from '../../services/openai.service';
   templateUrl: './test.component.html',
   styleUrl: './test.component.scss'
 })
-export class TestComponent {
+export class TestComponent implements OnInit {
   text: string = '';
 
-  constructor(private _ai: OpenaiService) { }
+  constructor(private _ai: OpenaiService, private _supabase: SupabaseService) { }
 
-  click() {
-    console.log(this._ai.tempConnTest().subscribe((data) => {
+  async ngOnInit(): Promise<void> {
+    console.log(await this._supabase.testDbConn())
+  }
+
+  async click(): Promise<void> {
+    this._ai.tempConnTest().subscribe((data) => {
       this.text = data.choices[0]?.message.content || '';
-    }));
+    });
   }
 }

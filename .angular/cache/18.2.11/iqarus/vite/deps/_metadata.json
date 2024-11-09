@@ -1,52 +1,67 @@
 {
-  "hash": "adc99e67",
-  "configHash": "eed57614",
+  "hash": "b20a135b",
+  "configHash": "f9832c00",
   "lockfileHash": "993cf647",
-  "browserHash": "a5a40178",
+  "browserHash": "5ba1a9e8",
   "optimized": {
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "fab13f52",
+      "fileHash": "3aef79ac",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "0a20ab28",
+      "fileHash": "aa076ae3",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "15b26868",
+      "fileHash": "7f172823",
+      "needsInterop": false
+    },
+    "@supabase/supabase-js": {
+      "src": "../../../../../../node_modules/@supabase/supabase-js/dist/module/index.js",
+      "file": "@supabase_supabase-js.js",
+      "fileHash": "a6c186b5",
       "needsInterop": false
     },
     "openai": {
       "src": "../../../../../../node_modules/openai/index.mjs",
       "file": "openai.js",
-      "fileHash": "e928bf51",
+      "fileHash": "1b7d0107",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../../../../../node_modules/rxjs/dist/esm5/index.js",
       "file": "rxjs.js",
-      "fileHash": "1eab6e2b",
+      "fileHash": "ee7a5400",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-4F2XAN5N": {
-      "file": "chunk-4F2XAN5N.js"
+    "chunk-3DAUI4XI": {
+      "file": "chunk-3DAUI4XI.js"
     },
-    "chunk-VZVQFK2V": {
-      "file": "chunk-VZVQFK2V.js"
+    "chunk-PMOJY4DJ": {
+      "file": "chunk-PMOJY4DJ.js"
     },
     "chunk-ZSY7TSMJ": {
       "file": "chunk-ZSY7TSMJ.js"
     },
-    "chunk-OICQITGS": {
-      "file": "chunk-OICQITGS.js"
+    "browser-MKPWY7QE": {
+      "file": "browser-MKPWY7QE.js"
+    },
+    "chunk-YLA2NK4F": {
+      "file": "chunk-YLA2NK4F.js"
+    },
+    "browser-NEYU4PT4": {
+      "file": "browser-NEYU4PT4.js"
+    },
+    "chunk-QQRLYLLM": {
+      "file": "chunk-QQRLYLLM.js"
     }
   }
 }
