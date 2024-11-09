@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../node_modules/ws/browser.js"],
+  "sourcesContent": ["'use strict';\n\nmodule.exports = function () {\n  throw new Error('ws does not work in the browser. Browser clients must use the native ' + 'WebSocket object');\n};"],
+  "mappings": ";;;;;AAAA;AAAA;AAEA,WAAO,UAAU,WAAY;AAC3B,YAAM,IAAI,MAAM,uFAA4F;AAAA,IAC9G;AAAA;AAAA;",
+  "names": []
+}
