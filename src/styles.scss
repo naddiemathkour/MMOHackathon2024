@@ -56,7 +56,6 @@ a {
 
   &:active {
     background-color: #A8E6CF;
-    transition: background-color .05s;
   }
 }
 
@@ -77,6 +76,10 @@ button {
   &:hover {
     background-color: #D27D72;
   }
+
+  &:active {
+    background-color: #E1A7A1;
+  }
 }
 
 .create-button {
@@ -84,6 +87,10 @@ button {
 
   &:hover {
     background-color: #87CEF0;
+  }
+
+  &:active {
+    background-color: #A2CFFE;
   }
 }
 
