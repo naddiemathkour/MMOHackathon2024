@@ -1,7 +1,3 @@
-# Environment files
-env/
-environments.ts
-
 # Angular specific files
 .angular/
 dist/
