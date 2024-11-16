@@ -1,10 +1,13 @@
 <main>
   <p>test works!</p>
-  <button class="create-button">Click this button!!</button>
+  <button (click)="click()" class="create-button">Create</button>
   <br>
-  <button class="action-button">Action Button</button>
+  <button class="action-button">Submit</button>
   <br>
-  <button class="cancel-button">Cancel Button</button>
-  <div>{{text}}</div>
+  <button class="cancel-button">Cancel</button>
+  @if(text) {
+    <div class="gold-outline">{{text}}</div>
+  }
+  <br>
   <a href="#">test a link</a>
 </main>
