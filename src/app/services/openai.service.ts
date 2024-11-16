@@ -29,7 +29,8 @@ export class OpenaiService {
           },
           {
             role: "user",
-            content: `Implement a user input that only accepts 15 characters and doesn't allow numbers to be used.`
+            content: `Implement a user input that only accepts 15 characters and doesn't allow numbers to be used. Be sure to 
+            cover as real-world cases as you can (up to 10 tests)`
           },
         ],
       })
