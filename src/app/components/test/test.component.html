@@ -10,4 +10,34 @@
   }
   <br>
   <a href="#">test a link</a>
+
+  @for (item of items; track item; let index = $index) {
+    <cdk-accordion class="accordion-container">
+        <cdk-accordion-item
+          #accordionItem="cdkAccordionItem"
+          class="accordion-item"
+          role="button"
+          tabindex="0"
+          [attr.id]="'accordion-header-' + index"
+          [attr.aria-expanded]="accordionItem.expanded"
+          [attr.aria-controls]="'accordion-body-' + index">
+          <div class="accordion-item-header" (click)="accordionItem.toggle()">
+            <p class="accordion-item-description">
+            List item: {{item}} | Click to {{ accordionItem.expanded ? 'close' : 'open'}}
+            </p> 
+          </div>
+          <div
+            class="accordion-body"
+            role="region"
+            [style.display]="accordionItem.expanded ? '' : 'none'"
+            [attr.id]="'accordion-body-' + index"
+            [attr.aria-labelledby]="'accordion-header-' + index">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis
+            excepturi incidunt ipsum deleniti labore, tempore non nam doloribus blanditiis
+            veritatis illo autem iure aliquid ullam rem tenetur deserunt velit culpa?
+          </div>
+        </cdk-accordion-item>
+    </cdk-accordion>
+  }
+
 </main>
