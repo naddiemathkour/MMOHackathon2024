@@ -43,7 +43,12 @@ export class CreatestoryComponent implements OnInit {
   generate() {
     if (this.storyForm.valid === true) {
       const fields = this.storyForm.value;
-      console.log('Printing: ', this._ai.generateTestsFromAC(fields.jira_ac));
+      this._ai.generateTestsFromAC(fields.jira_ac).then((data) => {
+        for (const test of data) {
+          this.generatedTests.push({expected_result: test.expected_result, scenario: test?.scenario} as ITest)
+        }
+        console.log('Gen Test: ', this.generatedTests);
+      });
     }
     else {
       alert("Please fill out all required fields");

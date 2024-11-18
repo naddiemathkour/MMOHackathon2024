@@ -1,16 +1,4 @@
 <main>
-    <p>test works!</p>
-    <button (click)="click()" class="create-button">Create</button>
-    <br>
-    <button class="action-button">Submit</button>
-    <br>
-    <button class="cancel-button">Cancel</button>
-    @if(text) {
-      <div class="gold-outline">{{text}}</div>
-    }
-    <br>
-    <a href="#">Home</a>
-  
     @for (item of items; track item; let index = $index) {
       <cdk-accordion class="accordion-container">
           <cdk-accordion-item
@@ -55,7 +43,6 @@
                     <tr mat-row *matRowDef="let row; columns: ['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'icon']"></tr> 
                 </table>
             </div>
-
             <!-- accordion body -->
             <div
               class="accordion-body"
@@ -63,8 +50,8 @@
               [style.display]="accordionItem.expanded ? '' : 'none'"
               [attr.id]="'accordion-body'"
               [attr.aria-labelledby]="'accordion-header'">
-              
-              @for (plan of item.storytestplans; track plan;) {
+ 
+              @for (plan of items; track plan) {
 
                 <table mat-table [dataSource]="[plan]" class="mat-elevation-z8">
                     <!-- Position Column -->
@@ -116,6 +103,6 @@
             </div>
           </cdk-accordion-item>
       </cdk-accordion>
-    }
+      }
 </main>
   

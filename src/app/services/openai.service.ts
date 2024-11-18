@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { OpenAIEnv } from '../env/environment'
 import OpenAI from 'openai';
-import { from } from "rxjs";
 import { ChatCompletion } from "openai/resources/chat/completions.mjs";
+import { ITest } from '../interfaces/test.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class OpenaiService {
     });
   }
 
-  async generateTestsFromAC(criteria: string): Promise<JSON | null> {
-    this._openai.chat.completions.create({
+  async generateTestsFromAC(criteria: string): Promise<ITest[]> {
+    const resp = await this._openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [
           {
@@ -28,7 +28,7 @@ export class OpenaiService {
               `You are an assistant to QA testers working on software development projects.
               Your goal is to convert Acceptance Criteria text into individual tests and also to generate the most important
               edge case scenarios for the features being implemented. These tests should be returned in JSON form and contain a
-              "Scenario" and "Expected Result" field that are both strings. The returned result should be a single array of tests.`
+              "scenario" and "expected_result" field that are both strings. The returned result should be a single array of tests.`
           },
           {
             role: "user",
@@ -37,7 +37,9 @@ export class OpenaiService {
                       the acceptance criteria instructions. [${criteria}]`
           },
         ],
-      }).then((data) => this.cleanResponse(data));
+      });
+
+      return this.cleanResponse(resp);
   }
 
 
