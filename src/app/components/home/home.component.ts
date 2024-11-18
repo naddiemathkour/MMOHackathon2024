@@ -70,7 +70,7 @@ export class HomeComponent {
   constructor(private _ai: OpenaiService, private _supabase: SupabaseService) { }
 
   async ngOnInit(): Promise<void> {
-    const data = await this._supabase.testDbConn();
+    const data = await this._supabase.getSprintStoryData();
     this.mapDataForUser(data);
 
   }
