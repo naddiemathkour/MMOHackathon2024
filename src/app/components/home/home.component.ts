@@ -26,6 +26,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {sprintId: 10, team: 'Neon', complete: 20.1797, status: 'Ne', startDate: '11/13/2024', endDate: '11/202/2024'},
 ];
 
+export interface SprintPlan {
+  sprinttestplan_id: number;
+  sprint_title: string;
+  //percentComplete: number;
+  //status: string;
+  start_date: string;
+  end_date: string;
+  completed_date: string;
+}
+
 
 @Component({
   selector: 'app-home',
@@ -38,18 +48,31 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class HomeComponent {
   text:   string = '';
   items:  string[] = ['1', '2', '3'];
-  displayedColumns: string[] = ['sprintId', 'team', 'complete', 'status', 'startDate', 'endDate'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date'];
+  dataSource: any;
+  testPlanDisplayColumn: string[] = ['storytestplan_id', 'jira_id', 'story_summary', 'execution_count', 'test_count', 'passed_test_count', 'testing_status', 'completed_date'];
+  testDataSource: any;
 
   constructor(private _ai: OpenaiService, private _supabase: SupabaseService) { }
 
   async ngOnInit(): Promise<void> {
-    console.log(await this._supabase.testDbConn())
+    const data = await this._supabase.testDbConn();
+    this.dataSource = data;
+    this.mapDataForUser(this.dataSource);
   }
 
   async click(): Promise<void> {
     this._ai.tempConnTest().subscribe((data) => {
       this.text = data.choices[0]?.message.content || '';
     });
+  }
+
+  mapDataForUser(data: any){
+    if(data !== null){
+      const UPDATED_DATA: SprintPlan[] = []; 
+      data.forEach((item: any) => { 
+        UPDATED_DATA.push({ sprinttestplan_id: item.sprinttestplan_id, sprint_title: item.sprint_title, start_date: item.start_date, end_date: item.end_date, completed_date: item.completed_date }); 
+      });
+    }
   }
 }
