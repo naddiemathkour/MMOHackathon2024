@@ -12,7 +12,14 @@ export class SupabaseService {
   }
 
   async testDbConn() {
-    const resp = await this.supabase.from('test').select('*');
-    return resp;
+    //const resp = await this.supabase.from('sprinttestplans').select('*');
+    const { data, error } = await this.supabase .from('sprinttestplans').select('*, storytestplans(*)');
+    console.log('data from db is: ', data);
+    if (error) { 
+      console.error("Error executing query:", error); 
+    } else { 
+      return data; 
+    }
+    return data;
   }
 }
