@@ -10,7 +10,7 @@ import { CreatestoryComponent } from '../createstory/createstory.component';
   styleUrl: './createstoriespage.component.scss'
 })
 export class CreatestoriespageComponent {
-  storyTestPlans: IStoryTestPlan[] = [{} as IStoryTestPlan, {} as IStoryTestPlan];
+  storyTestPlans: IStoryTestPlan[] = [];
   createStory: boolean = false;
 
   addStory(): void {
@@ -20,7 +20,6 @@ export class CreatestoriespageComponent {
   submit(event: any): void {
     if (this.createStory === true) {
       console.log('posting stories');
-      console.log('cringe');
       console.log(event);
       this.createStory = false;
     }
