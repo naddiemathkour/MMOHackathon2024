@@ -1,7 +1,8 @@
 import { Component, Output, OnInit, EventEmitter} from '@angular/core';
 import { ITest } from '../../interfaces/test.interface';
-import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenTestCardComponent } from '../cardcomponents/gen-test-card/gen-test-card.component';
+import { OpenaiService } from '../../services/openai.service';
 
 @Component({
   selector: 'app-createstory',
@@ -11,20 +12,19 @@ import { GenTestCardComponent } from '../cardcomponents/gen-test-card/gen-test-c
   styleUrl: './createstory.component.scss'
 })
 export class CreatestoryComponent implements OnInit {
-  @Output() tests: EventEmitter<ITest[]> = new EventEmitter<ITest[]>();
-  @Output() submit: EventEmitter<void> = new EventEmitter<void>();
+  @Output() submit: EventEmitter<ITest[]> = new EventEmitter<ITest[]>();
   
-  generatedTests: ITest[] = [{} as ITest, {} as ITest];
+  generatedTests: ITest[] = [];
   omittedTests: number[] = []
 
   storyForm!: FormGroup;
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder, private _ai: OpenaiService) {}
 
   ngOnInit(): void {
     this.storyForm = this._fb.group({
-      jira_id: "",
-      jira_ac: "",
+      jira_id: ["", Validators.required],
+      jira_ac: ["", Validators.required],
       additional_instructions: "",
     })
   }
@@ -38,5 +38,22 @@ export class CreatestoryComponent implements OnInit {
       this.omittedTests.splice(this.omittedTests.indexOf(index), 1);
     }
     console.log('Omitted: ', this.omittedTests)
+  }
+
+  generate() {
+    if (this.storyForm.valid === true) {
+      const fields = this.storyForm.value;
+      this._ai.generateTestsFromAC(fields.jira_ac).subscribe((data) => console.log(data));
+    }
+    else {
+      alert("Please fill out all required fields");
+    }
+  }
+
+  submitStory() {
+    console.log(this.storyForm.valid)
+    if (this.storyForm.valid === true) {
+      this.submit.emit(this.generatedTests);
+    }
   }
 }

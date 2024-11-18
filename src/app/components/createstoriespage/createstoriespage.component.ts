@@ -17,10 +17,11 @@ export class CreatestoriespageComponent {
     this.createStory = true;
   }
 
-  submit(): void {
+  submit(event: any): void {
     if (this.createStory === true) {
       console.log('posting stories');
       console.log('cringe');
+      console.log(event);
       this.createStory = false;
     }
   }

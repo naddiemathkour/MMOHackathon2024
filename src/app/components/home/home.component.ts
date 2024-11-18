@@ -61,11 +61,6 @@ export class HomeComponent {
     this.mapDataForUser(this.dataSource);
   }
 
-  async click(): Promise<void> {
-    this._ai.tempConnTest().subscribe((data) => {
-      this.text = data.choices[0]?.message.content || '';
-    });
-  }
 
   mapDataForUser(data: any){
     if(data !== null){

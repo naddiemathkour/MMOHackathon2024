@@ -5,7 +5,7 @@
     <p>{{idx + 1}}: Story: jira_id</p>
     }
     @if (createStory) {
-      <app-createstory (submit)="submit()"></app-createstory> 
+      <app-createstory (submit)="submit($event)"></app-createstory> 
     }
     <button class="create-button" (click)="addStory()" [disabled]="createStory">Add Story</button>
   </div>

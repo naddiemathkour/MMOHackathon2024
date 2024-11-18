@@ -1,17 +1,4 @@
 <main>
-
-    <p>test works!</p>
-    <button (click)="click()" class="create-button">Create</button>
-    <br>
-    <button class="action-button">Submit</button>
-    <br>
-    <button class="cancel-button">Cancel</button>
-    @if(text) {
-      <div class="gold-outline">{{text}}</div>
-    }
-    <br>
-    <a href="#">Home</a>
-  
     @for (item of items; track item; let index = $index) {
       <cdk-accordion class="accordion-container">
           <cdk-accordion-item
