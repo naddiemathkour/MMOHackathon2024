@@ -12,6 +12,7 @@ import { GenTestCardComponent } from '../cardcomponents/gen-test-card/gen-test-c
 })
 export class CreatestoryComponent implements OnInit {
   @Output() tests: EventEmitter<ITest[]> = new EventEmitter<ITest[]>();
+  @Output() submit: EventEmitter<void> = new EventEmitter<void>();
   
   generatedTests: ITest[] = [{} as ITest, {} as ITest];
   omittedTests: number[] = []

@@ -13,7 +13,15 @@ export class CreatestoriespageComponent {
   storyTestPlans: IStoryTestPlan[] = [{} as IStoryTestPlan, {} as IStoryTestPlan];
   createStory: boolean = false;
 
-  create(): void {
+  addStory(): void {
     this.createStory = true;
+  }
+
+  submit(): void {
+    if (this.createStory === true) {
+      console.log('posting stories');
+      console.log('cringe');
+      this.createStory = false;
+    }
   }
 }
