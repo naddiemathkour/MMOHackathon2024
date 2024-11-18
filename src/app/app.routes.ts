@@ -9,5 +9,10 @@ export const routes: Routes = [
   {
     path: 'create/stories',
     loadComponent: () => import('./components/createstoriespage/createstoriespage.component').then((c) => c.CreatestoriespageComponent)
+  },
+
+  {
+    path: 'stories/list',
+    loadComponent: () => import('./components/story/story.component').then((c) => c.StoryComponent)
   }
 ];

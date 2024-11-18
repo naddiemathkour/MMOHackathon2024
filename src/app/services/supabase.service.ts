@@ -11,9 +11,21 @@ export class SupabaseService {
     this.supabase = createClient(SupabaseEnv.API_URL, SupabaseEnv.API_KEY);
   }
 
-  async testDbConn() {
+  async getSprintStoryData() {
     //const resp = await this.supabase.from('sprinttestplans').select('*');
     const { data, error } = await this.supabase .from('sprinttestplans').select('*, storytestplans(*)');
+    console.log('data from db is: ', data);
+    if (error) { 
+      console.error("Error executing query:", error); 
+    } else { 
+      return data; 
+    }
+    return data;
+  }
+
+  async getStoryTestData() {
+    //const resp = await this.supabase.from('sprinttestplans').select('*');
+    const { data, error } = await this.supabase .from('storytestplans').select('*, storytestplans(*)');
     console.log('data from db is: ', data);
     if (error) { 
       console.error("Error executing query:", error); 
