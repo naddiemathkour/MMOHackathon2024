@@ -1,0 +1,11 @@
+<strong>Scenario:</strong>
+<p>Scenario text</p>
+<strong>Expected Result:</strong>
+<p>Expected result text</p>
+<div class="button-container">
+  @if (isIncluded) {
+    <button class="cancel-button" (click)="include(false)">Exclude</button>
+  } @else {
+    <button class="action-button" (click)="include(true)">Include</button>
+  }
+</div>
