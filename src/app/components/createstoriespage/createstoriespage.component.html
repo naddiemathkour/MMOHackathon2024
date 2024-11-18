@@ -1,6 +1,12 @@
 <main>
   <span>Sprint Test Plan Id</span>
-  @for(stp of sprintTestPlans; track stp.sprinttestplan_id; let idx = $index) {
-
-  }
+  <div class="story-list-container">
+    @for(stp of storyTestPlans; track stp.storytestplan_id; let idx = $index) {
+    <p>{{idx + 1}}: Story: jira_id</p>
+    }
+    @if (createStory) {
+      <app-createstory></app-createstory> 
+    }
+    <button class="create-button" (click)="create()" [disabled]="createStory">Add Story</button>
+  </div>
 </main>
