@@ -1,16 +1,21 @@
 <form [formGroup]="storyForm">
   <div>
     <label for="jira_id">Jira Id: </label>
-    <input type="text">
+    <input id="jira_id" type="text" required>
   </div>
 
   <div>
     <label for="jira_ac">Story Acceptance Criteria:</label>
-    <input type="text">
+    <input id="jira_ac" type="text" required>
   </div>
 
   <div>
     <label for="additional_instructions">Additional Instructions:</label>
-    <input type="text">
+    <input id="additional_instructions" type="text">
   </div>
+
+  @for (test of generatedTests; track test.test_id; let idx = $index) {
+    <app-gen-test-card (included)="addTest($event, idx)"></app-gen-test-card>
+  }
+  <button class="action-button">Commit Story</button>
 </form>
