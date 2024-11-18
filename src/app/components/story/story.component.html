@@ -1,5 +1,4 @@
 <main>
-
     <p>test works!</p>
     <button (click)="click()" class="create-button">Create</button>
     <br>
@@ -27,7 +26,7 @@
                     
                     <ng-container matColumnDef="sprinttestplan_id"> 
                         <th mat-header-cell *matHeaderCellDef> STP ID </th> 
-                        <td mat-cell *matCellDef="let item"> {{item.sprinttestplan_id}} </td> 
+                        <td mat-cell *matCellDef="let item"> {{item.storytestplan_id}} </td> 
                     </ng-container> 
                     <ng-container matColumnDef="sprint_title"> 
                         <th mat-header-cell *matHeaderCellDef> Sprint # - Team </th> 
@@ -118,5 +117,5 @@
           </cdk-accordion-item>
       </cdk-accordion>
     }
-  </main>
+</main>
   
