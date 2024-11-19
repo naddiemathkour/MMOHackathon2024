@@ -8,16 +8,18 @@ import { SupabaseService } from '../../services/supabase.service';
 import { IStoryTestPlan } from '../../interfaces/storytestplan.interface';
 import { ITest } from '../../interfaces/test.interface';
 import { ActivatedRoute } from '@angular/router';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-story',
   standalone: true,
-  imports: [CdkAccordionModule, MatTableModule, MatIconModule, CommonModule],
+  imports: [CdkAccordionModule, MatTableModule, MatIconModule, CommonModule, MatSlideToggleModule],
   providers: [OpenaiService],
   templateUrl: './story.component.html',
   styleUrl: './story.component.scss'
 })
 export class StoryComponent {
+  isToggled = false;
   text:  string = '';
   storyplan!: IStoryTestPlan;
   tests: ITest[] = [];
@@ -69,5 +71,13 @@ export class StoryComponent {
         this.storyplan = UPDATED_DATA as IStoryTestPlan;
       console.log('Story plan is: ', this.storyplan);
     }
+  }
+
+  onToggle(event: any, test_id: number): void { 
+    this.isToggled = event.checked; 
+    const status = this.isToggled == true ? 'Passed' : 'Failed';
+    this._supabase.saveTestStatus(status, test_id);
+    console.log('here', event);
+    console.log('here2', test_id);
   }
 }

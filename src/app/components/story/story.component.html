@@ -6,7 +6,8 @@
             role="button"
             tabindex="0"
             [attr.aria-expanded]="accordionItem.expanded"
-            >
+            [attr.aria-controls]="'accordion-body-' + index"
+            [expanded] = "true">
             <div class="accordion-item-header" (click)="accordionItem.toggle()">
                 <table mat-table [dataSource]="[storyplan]" class="mat-elevation-z8">
                     
@@ -43,7 +44,7 @@
     
                         <ng-container matColumnDef="test_status">
                             <th mat-header-cell *matHeaderCellDef> Status </th>
-                            <td mat-cell *matCellDef="let storyplan"> {{storyplan.test_status}} </td>
+                            <td mat-cell *matCellDef="let storyplan"> {{storyplan.test_count == storyplan.passed_test_count ? 'Completed' : 'In Progress'}} </td>
                         </ng-container>
     
                         <ng-container matColumnDef="completed_date">
@@ -89,7 +90,12 @@
 
                     <ng-container matColumnDef="test_status">
                         <th mat-header-cell *matHeaderCellDef> Test Status </th>
-                        <td mat-cell *matCellDef="let plan"> {{plan.test_status}} </td>
+                        <td mat-cell *matCellDef="let plan"> 
+                            <mat-slide-toggle color="primary" 
+                            [checked]="plan.test_status == 'Passed' ? 'true' : 'false'" 
+                            (change)="onToggle($event, plan.test_id)" aria-label="Toggle Button">
+                            </mat-slide-toggle>
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="expected_result">

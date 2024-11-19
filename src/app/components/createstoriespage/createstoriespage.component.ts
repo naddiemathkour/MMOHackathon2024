@@ -17,7 +17,7 @@ import { SupabaseService } from '../../services/supabase.service';
   standalone: true,
   imports: [CreatestoryComponent, MatInputModule, MatButtonModule, MatCardModule, MatDividerModule, ReactiveFormsModule, CommonModule],
   templateUrl: './createstoriespage.component.html',
-  styleUrl: './createstoriespage.component.scss'
+  styleUrl: './createstoriespage.component.scss',
 })
 
 export class CreatestoriespageComponent implements OnInit {
@@ -128,7 +128,7 @@ export class CreatestoriespageComponent implements OnInit {
   submitStory() {
     console.log(this.storyForm.valid)
     if (this.storyForm.valid === true) {
-      this.submit.emit(this.generatedTests);
+      //this.submit.emit(this.generatedTests);
     }
   }
 
