@@ -24,7 +24,6 @@ export class SupabaseService {
 
   async getStoryTestData(storytestplan_id: number) {
     const { data, error } = await this.supabase .from('tests').select('*').eq('storytestplan_id', storytestplan_id);
-    console.log('data from db is for story is: ', data);
 
     if (error) { 
       console.error("Error executing query:", error); 
@@ -110,7 +109,6 @@ export class SupabaseService {
   }
 
   async postStoryTestData(data: IStoryTestPlan) {
-    console.log('Printing: ', data)
     const { error } = await this.supabase
     .from('storytestplans')
     .insert(data)

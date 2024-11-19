@@ -18,12 +18,12 @@ export class TestComponent implements OnInit {
   constructor(private _ai: OpenaiService, private _supabase: SupabaseService) { }
 
   async ngOnInit(): Promise<void> {
-    console.log(await this._supabase.testDbConn())
+    //console.log(await this._supabase.testDbConn())
   }
 
   async click(): Promise<void> {
-    this._ai.tempConnTest().subscribe((data) => {
+    /*this._ai.tempConnTest().subscribe((data) => {
       this.text = data.choices[0]?.message.content || '';
-    });
+    });*/
   }
 }

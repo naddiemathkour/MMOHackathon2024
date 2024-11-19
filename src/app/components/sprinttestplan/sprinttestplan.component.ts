@@ -42,13 +42,12 @@ export class SprinttestplanComponent {
           'end_date': this.form.controls['endDate'].value,
         };
         const result = await this._supabase.saveFormData(data);
-        console.log('Data saved:', result);
         this.router.navigate(['']);
       } catch (error) {
-        console.error('Error saving data:', error);
+        //
       }
     } else {
-      console.log('Form is invalid');
+      //
     }
   }
 }
