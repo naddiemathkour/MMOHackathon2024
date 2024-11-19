@@ -23,7 +23,7 @@ export class SupabaseService {
   }
 
   async getStoryTestData(storytestplan_id: string) {
-    const { data, error } = await this.supabase .from('storytestplans').select('*, tests(*)').eq('storytestplan_id', storytestplan_id);;
+    const { data, error } = await this.supabase .from('storytestplans').select('*, tests(*)').eq('storytestplan_id', storytestplan_id);
     console.log('data from db is for story is: ', data);
 
     if (error) { 
