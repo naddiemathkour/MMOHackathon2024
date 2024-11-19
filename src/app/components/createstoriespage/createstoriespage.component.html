@@ -2,7 +2,7 @@
   <span>Sprint Test Plan Id</span>
   <div class="story-list-container">
     @for(stp of storyTestPlans; track stp.storytestplan_id; let idx = $index) {
-    <p>{{idx + 1}}: Story: jira_id</p>
+    <p>{{idx + 1}}: Story {{ stp.jira_id }}</p>
     }
     @if (createStory) {
       <app-createstory (submit)="submit($event)"></app-createstory> 

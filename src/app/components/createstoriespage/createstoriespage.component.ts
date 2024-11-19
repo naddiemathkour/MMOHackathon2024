@@ -58,10 +58,25 @@ export class CreatestoriespageComponent {
 
   }
 
+  async updateStoryTestPlans(id: number) {
+    await this._supabase.getStoryTestPlansBySprintTestPlanId(id).then((data) => {
+      if (!data) return;
+      this.storyTestPlans = [...data];
+    });
+  }
+
   async submit(event: any): Promise<void> {
     if (this.createStory === true) {
       await this.createStoryTestPlan(event); 
       await this.createTests(event);
+
+      let id;
+      await this._supabase.getSprintTestPlanId().then((data) => id = data?.pop()?.sprinttestplan_id)
+
+      if (id) {
+        await this.updateStoryTestPlans(id);
+      }
+
       this.createStory = false;
     }
   }
