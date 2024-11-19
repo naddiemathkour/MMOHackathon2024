@@ -53,7 +53,7 @@ export class StoryComponent {
           completed_at: item.completed_at,
           created_at: item.created_at,
           tests: item.tests,
-        }); 
+        } as IStoryTestPlan); 
       });
       this.storyplans = UPDATED_DATA;
       console.log('updated_data is: ', UPDATED_DATA);

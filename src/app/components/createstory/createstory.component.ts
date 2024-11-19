@@ -6,7 +6,6 @@ import { OpenaiService } from '../../services/openai.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
-import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-createstory',

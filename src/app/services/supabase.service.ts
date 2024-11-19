@@ -53,6 +53,7 @@ export class SupabaseService {
       throw new Error(error.message);
     }
     return result;
+  }
 
   async getStoryTestPlanId() {
     const { data, error } = await this.supabase

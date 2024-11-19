@@ -64,7 +64,8 @@ export class CreatestoriespageComponent implements OnInit {
     const payload: IStoryTestPlan = {
       sprinttestplan_id: sprintId,
       jira_id: 'test',
-      test_count: data.length
+      test_count: data.length,
+      tests: []
     } as IStoryTestPlan
     await this._supabase.postStoryTestData(payload);
   }

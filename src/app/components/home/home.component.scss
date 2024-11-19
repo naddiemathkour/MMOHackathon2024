@@ -1,5 +1,5 @@
 .button-container { 
     display: flex; 
     justify-content: flex-end; /* Aligns the button to the right */ 
-    padding: 20px; /* Optional padding for visual spacing */ 
+    margin: var(--margin);
 }

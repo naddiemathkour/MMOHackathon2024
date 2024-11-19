@@ -20,14 +20,14 @@
         </mat-form-field>
         
         <div class="button-container">
-          <button mat-raised-button color="warn" type="button" (click)="goBack()">Back</button>
-          <button mat-raised-button color="primary" type="button" (click)="generate()">
+          <button class="cancel-button" type="button" (click)="goBack()">Back</button>
+          <button class="create-button" type="button" (click)="generate()">
             {{ (generatedTests.length > 0) ? 'Regenerate' : 'Generate' }} Tests
           </button>
         </div>
         
         <div *ngFor="let test of generatedTests; let idx = index">
-          <app-gen-test-card [test]="test" (included)="addTest($event, idx)"></app-gen-test-card>
+          <app-gen-test-card [test]="test" (included)="toggleTest($event, idx)"></app-gen-test-card>
         </div>
         
         <div *ngIf="generatedTests.length > 0" class="button-container">

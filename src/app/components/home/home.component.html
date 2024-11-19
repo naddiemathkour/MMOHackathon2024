@@ -1,6 +1,10 @@
 
 <main>
-    <div class="button-container"> <a href="/sprint/plan/create"><button mat-raised-button color="primary">Create Sprint Test Plan</button></a> </div>
+    <div class="button-container">
+      <a href="/sprint/plan/create">
+        <button class="create-button">Create Sprint Test Plan</button>
+      </a>
+    </div>
     @for (item of items; track item; let index = $index) {
       <cdk-accordion class="accordion-container">
           <cdk-accordion-item
@@ -39,22 +43,21 @@
                         <td mat-cell *matCellDef="let item"> {{ item.completed_date | date: 'medium' }} </td> 
                     </ng-container> 
 
-                    <ng-container matColumnDef="add_stories"> 
-                        <th mat-header-cell *matHeaderCellDef> <a href="/create/stories"><strong><button mat-raised-button color="primary" type="submit">Add Stories</button></strong></a> </th> 
-                    </ng-container> 
-
                     <ng-container matColumnDef="icon"> 
                         <th mat-header-cell *matHeaderCellDef>
                             <mat-icon *ngIf="!accordionItem.expanded">arrow_drop_down</mat-icon>
                             <mat-icon *ngIf="accordionItem.expanded">arrow_drop_up</mat-icon>
                         </th> 
                         <td mat-cell *matCellDef="let item">
+                          <a href="/create/stories">
+                            <button class="create-button">Add Stories</button>
+                          </a>
                         </td> 
                     </ng-container> 
 
                     <tr 
                       mat-header-row 
-                      *matHeaderRowDef="['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'add_stories', 'icon']">
+                      *matHeaderRowDef="['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'icon']">
                     </tr> 
 
                     <tr 

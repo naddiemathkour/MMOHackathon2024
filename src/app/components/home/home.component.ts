@@ -23,14 +23,13 @@ export class HomeComponent {
   displayedColumns: string[] = ['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date'];
   testPlanDisplayColumn: string[] = ['storytestplan_id', 'jira_id', 'story_summary', 'execution_count', 'test_count', 'passed_test_count', 'testing_status', 'completed_date'];
 
-  constructor(private _ai: OpenaiService, private _supabase: SupabaseService) { }
+  constructor(private _supabase: SupabaseService) { }
 
   async ngOnInit(): Promise<void> {
     const data = await this._supabase.getSprintStoryData();
     this.mapDataForUser(data);
 
   }
-
 
   mapDataForUser(data: any){
     if(data !== null){
