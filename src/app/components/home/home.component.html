@@ -16,22 +16,27 @@
                         <th mat-header-cell *matHeaderCellDef> <strong>Sprint Test Plan</strong> </th> 
                         <td mat-cell *matCellDef="let item"> {{item.sprinttestplan_id}} </td> 
                     </ng-container> 
+
                     <ng-container matColumnDef="sprint_title"> 
                         <th mat-header-cell *matHeaderCellDef> <strong>Sprint Title</strong> </th> 
                         <td mat-cell *matCellDef="let item"> {{ item.sprint_title }} </td> 
                     </ng-container> 
+
                     <ng-container matColumnDef="start_date"> 
                         <th mat-header-cell *matHeaderCellDef> <strong>Start Date</strong> </th> 
                         <td mat-cell *matCellDef="let item"> {{ item.start_date | date: 'medium' }} </td> 
                     </ng-container> 
+
                     <ng-container matColumnDef="end_date"> 
                         <th mat-header-cell *matHeaderCellDef> <strong>End Date</strong> </th> 
                         <td mat-cell *matCellDef="let item"> {{ item.end_date | date: 'medium' }} </td> 
                     </ng-container> 
+
                     <ng-container matColumnDef="completed_date"> 
                         <th mat-header-cell *matHeaderCellDef> <strong>Completed Date</strong> </th> 
                         <td mat-cell *matCellDef="let item"> {{ item.completed_date | date: 'medium' }} </td> 
                     </ng-container> 
+
                     <ng-container matColumnDef="icon"> 
                         <th mat-header-cell *matHeaderCellDef>
                             <mat-icon *ngIf="!accordionItem.expanded">arrow_drop_down</mat-icon>
@@ -40,8 +45,19 @@
                         <td mat-cell *matCellDef="let item">
                         </td> 
                     </ng-container> 
-                    <tr mat-header-row *matHeaderRowDef="['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'icon']"></tr> 
-                    <tr mat-row *matRowDef="let row; columns: ['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'icon']"></tr> </table> </div>
+
+                    <tr 
+                      mat-header-row 
+                      *matHeaderRowDef="['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'icon']">
+                    </tr> 
+
+                    <tr 
+                      mat-row 
+                      *matRowDef=
+                      "let row; columns: ['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'icon']">
+                    </tr>
+                </table>
+            </div>
 
             <!-- accordion body -->
             <div
@@ -60,7 +76,7 @@
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="jira_id">
-                    <th mat-header-cell *matHeaderCellDef> Jira ID </th>
+                    <th mat-header-cell *matHeaderCellDef> Story ID </th>
                     <td mat-cell *matCellDef="let plan">
                         <a href="/stories/list">{{ plan.jira_id }}</a>
                     </td>
@@ -88,20 +104,19 @@
 
                 <ng-container matColumnDef="testing_status">
                     <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let plan"> {{ plan.testing_status }} </td>
+                    <td mat-cell *matCellDef="let plan"> {{ plan.testing_status.toUpperCase() }} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="completed_date">
                     <th mat-header-cell *matHeaderCellDef> Completed Date </th>
-                    <td mat-cell *matCellDef="let plan"> {{ plan.completed_date }} </td>
+                    <td mat-cell *matCellDef="let plan"> {{ (plan.completed_date) ? plan.completed_date : 'In Progress' }} </td>
                 </ng-container>
 
                 <!-- Header Row -->
                 <tr mat-header-row *matHeaderRowDef="testPlanDisplayColumn"></tr>
                 <!-- Data Rows -->
                 <tr mat-row *matRowDef="let row; columns: testPlanDisplayColumn;"></tr>
-            </table>
-              
+              </table>
             </div>
           </cdk-accordion-item>
       </cdk-accordion>
