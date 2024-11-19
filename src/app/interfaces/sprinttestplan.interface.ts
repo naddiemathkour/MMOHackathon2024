@@ -1,3 +1,5 @@
+import { IStoryTestPlan } from "./storytestplan.interface";
+
 export interface ISprintTestPlan {
   sprinttestplan_id: number;
   start_date: Date;
@@ -6,4 +8,5 @@ export interface ISprintTestPlan {
   total_story_count: number;
   passed_story_count: number;
   sprint_title: string;
+  storytestplans: IStoryTestPlan[];
 }

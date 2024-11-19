@@ -12,7 +12,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'stories/list',
+    path: 'stories/list/:storytestplan_id',
     loadComponent: () => import('./components/story/story.component').then((c) => c.StoryComponent)
   }
 ];

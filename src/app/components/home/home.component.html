@@ -78,7 +78,7 @@
                 <ng-container matColumnDef="jira_id">
                     <th mat-header-cell *matHeaderCellDef> Story ID </th>
                     <td mat-cell *matCellDef="let plan">
-                        <a href="/stories/list">{{ plan.jira_id }}</a>
+                        <a href="/stories/list/{{plan.storytestplan_id}}">{{ plan.jira_id }}</a>
                     </td>
                 </ng-container>
 

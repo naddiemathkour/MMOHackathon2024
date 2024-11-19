@@ -23,10 +23,10 @@ export class SupabaseService {
     return data;
   }
 
-  async getStoryTestData() {
+  async getStoryTestData(storytestplan_id: string) {
     //const resp = await this.supabase.from('sprinttestplans').select('*');
-    const { data, error } = await this.supabase .from('storytestplans').select('*, storytestplans(*)');
-    console.log('data from db is: ', data);
+    const { data, error } = await this.supabase .from('storytestplans').select('*, tests(*)').eq('storytestplan_id', storytestplan_id);;
+    console.log('data from db is for story is: ', data);
     if (error) { 
       console.error("Error executing query:", error); 
     } else { 
