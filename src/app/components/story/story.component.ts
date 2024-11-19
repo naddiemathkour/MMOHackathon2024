@@ -25,7 +25,7 @@ export class StoryComponent {
   displayedColumns: string[] = ['storytestplan_id', 'jira_id', 'story_summary', 'execution_count', 'test_count', 'passed_test_count', 'test_status', 'completed_date'];
   testPlanDisplayColumn: string[] = ['test_id', 'scenario', 'test_status', 'expected_result', 'created_at', 'updated_at'];
 
-  constructor(private _ai: OpenaiService, private _supabase: SupabaseService, private route: ActivatedRoute) { }
+  constructor(private _supabase: SupabaseService, private route: ActivatedRoute) { }
 
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe(async params => {
