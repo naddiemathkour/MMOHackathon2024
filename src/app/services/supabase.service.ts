@@ -14,9 +14,7 @@ export class SupabaseService {
   }
 
   async getSprintStoryData() {
-    //const resp = await this.supabase.from('sprinttestplans').select('*');
     const { data, error } = await this.supabase .from('sprinttestplans').select('*, storytestplans(*)');
-    //console.log('data from db is: ', data);
     if (error) { 
       console.error("Error executing query:", error); 
       return null;
@@ -24,10 +22,10 @@ export class SupabaseService {
     return data;
   }
 
-  async getStoryTestData() {
-    //const resp = await this.supabase.from('sprinttestplans').select('*');
-    const { data, error } = await this.supabase .from('storytestplans').select('*, storytestplans(*)');
-    //console.log('data from db is: ', data);
+  async getStoryTestData(storytestplan_id: string) {
+    const { data, error } = await this.supabase .from('storytestplans').select('*, tests(*)').eq('storytestplan_id', storytestplan_id);;
+    console.log('data from db is for story is: ', data);
+
     if (error) { 
       console.error("Error executing query:", error); 
     }  
@@ -45,6 +43,16 @@ export class SupabaseService {
     }
 
     return data;
+  }
+
+  async saveFormData(data: any): Promise<any> {
+    const { data: result, error } = await this.supabase
+      .from('sprinttestplans')
+      .insert([data]);
+    if (error) {
+      throw new Error(error.message);
+    }
+    return result;
   }
 
   async getStoryTestPlanId() {

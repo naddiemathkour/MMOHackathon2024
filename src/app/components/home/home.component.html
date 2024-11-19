@@ -1,4 +1,10 @@
+
 <main>
+    <div class="button-container">
+      <a href="/sprint/plan/create">
+        <button class="create-button">Create Sprint Test Plan</button>
+      </a>
+    </div>
     @for (item of items; track item; let index = $index) {
       <cdk-accordion class="accordion-container">
           <cdk-accordion-item
@@ -43,6 +49,9 @@
                             <mat-icon *ngIf="accordionItem.expanded">arrow_drop_up</mat-icon>
                         </th> 
                         <td mat-cell *matCellDef="let item">
+                          <a href="/create/stories">
+                            <button class="create-button">Add Stories</button>
+                          </a>
                         </td> 
                     </ng-container> 
 
@@ -78,7 +87,7 @@
                 <ng-container matColumnDef="jira_id">
                     <th mat-header-cell *matHeaderCellDef> Story ID </th>
                     <td mat-cell *matCellDef="let plan">
-                        <a href="/stories/list">{{ plan.jira_id }}</a>
+                        <a href="/stories/list/{{plan.storytestplan_id}}">{{ plan.jira_id }}</a>
                     </td>
                 </ng-container>
 

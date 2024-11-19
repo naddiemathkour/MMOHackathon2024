@@ -1,6 +1,22 @@
-form {
-  display: grid;
-  grid: auto-flow dense / 100px repeat(2, 200px) / repeat(3, 1fr);
-  height: fit-content;
-  border: 1px solid var(--color-accent);
+.story-form {
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-seconary);
 }
+
+.form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 10px;
+}
+
