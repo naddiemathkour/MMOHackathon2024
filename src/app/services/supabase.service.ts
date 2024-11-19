@@ -34,4 +34,14 @@ export class SupabaseService {
     }
     return data;
   }
+
+  async saveFormData(data: any): Promise<any> {
+    const { data: result, error } = await this.supabase
+      .from('sprinttestplans')
+      .insert([data]);
+    if (error) {
+      throw new Error(error.message);
+    }
+    return result;
+  }
 }

@@ -17,6 +17,13 @@
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker></mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Completed Date</mat-label>
+      <input matInput [matDatepicker]="completedDatePicker" formControlName="completedDate" placeholder="Choose a complete date">
+      <mat-datepicker-toggle matSuffix [for]="completedDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #completedDatePicker></mat-datepicker>
+    </mat-form-field>
   
     <div class="button-container">
       <button mat-raised-button color="warn" type="button" (click)="goBack()">Back</button>
