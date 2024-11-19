@@ -49,9 +49,11 @@
                             <mat-icon *ngIf="accordionItem.expanded">arrow_drop_up</mat-icon>
                         </th> 
                         <td mat-cell *matCellDef="let item">
-                          <a href="/create/stories">
-                            <button class="create-button">Add Stories</button>
-                          </a>
+                          @if (index === 0) {
+                            <a href="/create/stories">
+                              <button class="create-button">Add Stories</button>
+                            </a>
+                          }
                         </td> 
                     </ng-container> 
 
