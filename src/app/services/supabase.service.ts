@@ -14,7 +14,7 @@ export class SupabaseService {
   }
 
   async getSprintStoryData() {
-    const { data, error } = await this.supabase .from('sprinttestplans').select('*, storytestplans(*)');
+    const { data, error } = await this.supabase .from('sprinttestplans').select('*, storytestplans(*)').order('sprinttestplan_id', { ascending: false });
     if (error) { 
       console.error("Error executing query:", error); 
       return null;

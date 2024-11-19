@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Location } from '@angular/common';
 import { SupabaseService } from '../../services/supabase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sprinttestplan',
@@ -21,14 +22,12 @@ import { SupabaseService } from '../../services/supabase.service';
 export class SprinttestplanComponent {
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private location: Location, private _supabase: SupabaseService) {}
+  constructor(private fb: FormBuilder, private location: Location, private _supabase: SupabaseService, private router: Router) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       sprintPlanName: ['', Validators.required],
-      startDate: ['', [Validators.required]],
       endDate: [''],
-      completedDate: [''],
     });
   }
 
@@ -40,12 +39,11 @@ export class SprinttestplanComponent {
       try {
         const data = {
           'sprint_title': this.form.controls['sprintPlanName'].value,
-          'start_date': this.form.controls['startDate'].value,
           'end_date': this.form.controls['endDate'].value,
-          'completed_date': this.form.controls['completedDate']?.value,
         };
         const result = await this._supabase.saveFormData(data);
         console.log('Data saved:', result);
+        this.router.navigate(['']);
       } catch (error) {
         console.error('Error saving data:', error);
       }
