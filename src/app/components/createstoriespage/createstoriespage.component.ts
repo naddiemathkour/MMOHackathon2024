@@ -60,8 +60,6 @@ export class CreatestoriespageComponent {
 
   async submit(event: any): Promise<void> {
     if (this.createStory === true) {
-      console.log('posting stories');
-      console.log([...event]);
       await this.createStoryTestPlan(event); 
       await this.createTests(event);
       this.createStory = false;
