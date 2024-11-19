@@ -3,11 +3,14 @@ import { ITest } from '../../interfaces/test.interface';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GenTestCardComponent } from '../cardcomponents/gen-test-card/gen-test-card.component';
 import { OpenaiService } from '../../services/openai.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-createstory',
   standalone: true,
-  imports: [ReactiveFormsModule, GenTestCardComponent],
+  imports: [ReactiveFormsModule, GenTestCardComponent, MatFormFieldModule, ReactiveFormsModule, CommonModule],
   templateUrl: './createstory.component.html',
   styleUrl: './createstory.component.scss'
 })
@@ -19,13 +22,13 @@ export class CreatestoryComponent implements OnInit {
 
   storyForm!: FormGroup;
 
-  constructor(private _fb: FormBuilder, private _ai: OpenaiService) {}
+  constructor(private _fb: FormBuilder, private _ai: OpenaiService, private location: Location) {}
 
   ngOnInit(): void {
     this.storyForm = this._fb.group({
       jira_id: ["", Validators.required],
       jira_ac: ["", Validators.required],
-      additional_instructions: "",
+      additional_instructions: [""],
     })
   }
 
@@ -60,5 +63,11 @@ export class CreatestoryComponent implements OnInit {
     if (this.storyForm.valid === true) {
       this.submit.emit(this.generatedTests);
     }
+  }
+
+  goBack(): void { this.location.back(); }
+
+  addStoryToSprint(){
+    //
   }
 }

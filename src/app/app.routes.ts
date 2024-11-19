@@ -8,11 +8,16 @@ export const routes: Routes = [
 
   {
     path: 'create/stories',
-    loadComponent: () => import('./components/createstoriespage/createstoriespage.component').then((c) => c.CreatestoriespageComponent)
+    loadComponent: () => import('./components/createstory/createstory.component').then((c) => c.CreatestoryComponent)
   },
 
   {
     path: 'stories/list/:storytestplan_id',
     loadComponent: () => import('./components/story/story.component').then((c) => c.StoryComponent)
+  },
+
+  {
+    path: 'sprint/plan/create',
+    loadComponent: () => import('./components/sprinttestplan/sprinttestplan.component').then((c) => c.SprinttestplanComponent)
   }
 ];
