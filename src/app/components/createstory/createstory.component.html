@@ -16,17 +16,17 @@
   <div class="button-container">
     <button class="cancel-button" (click)="goBack()">Back</button>
     <button class="create-button" type="button" (click)="generate()">
-      {{ (generatedTests.length > 0) ? 'Regenerate' : 'Generate' }} Tests
+      {{ (generatedTests.length > 0) ? 'Regenerate' : (loading) ? "Loading..." : 'Generate Tests' }}
     </button>
   </div>
 
   @for (test of generatedTests; track test; let idx = $index) {
     <app-gen-test-card [test]="test" (included)="toggleTest($event, idx)"></app-gen-test-card>
   }
-  
-  <div *ngFor="let test of generatedTests; let idx = index">
-    <app-gen-test-card [test]="test" (included)="toggleTest($event, idx)"></app-gen-test-card>
-  </div>
+
+  @if (loading) {
+    <span>Loading...</span>
+  }
   
   <div *ngIf="generatedTests.length > 0" class="button-container">
     <button class="action-button" type="button" (click)="submitStory()">Commit Story</button>

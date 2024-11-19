@@ -47,7 +47,6 @@ export class HomeComponent {
         }); 
       });
       this.items = UPDATED_DATA;
-      console.log('updated_data is: ', UPDATED_DATA);
     }
   }
 }

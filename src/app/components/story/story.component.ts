@@ -25,7 +25,7 @@ export class StoryComponent {
   tests: ITest[] = [];
   storytestplan_id!: string | null;
   displayedColumns: string[] = ['storytestplan_id', 'jira_id', 'story_summary', 'execution_count', 'test_count', 'passed_test_count', 'test_status', 'completed_date'];
-  testPlanDisplayColumn: string[] = ['test_id', 'scenario', 'test_status', 'expected_result', 'created_at', 'updated_at'];
+  testPlanDisplayColumn: string[] = ['test_id', 'scenario', 'expected_result', 'created_at', 'updated_at', 'test_status'];
 
   constructor(private _supabase: SupabaseService, private route: ActivatedRoute) { }
 
@@ -69,7 +69,6 @@ export class StoryComponent {
           created_at: item.created_at,
         } as IStoryTestPlan; 
         this.storyplan = UPDATED_DATA as IStoryTestPlan;
-      console.log('Story plan is: ', this.storyplan);
     }
   }
 
@@ -77,7 +76,5 @@ export class StoryComponent {
     this.isToggled = event.checked; 
     const status = this.isToggled == true ? 'Passed' : 'Failed';
     this._supabase.saveTestStatus(status, test_id);
-    console.log('here', event);
-    console.log('here2', test_id);
   }
 }

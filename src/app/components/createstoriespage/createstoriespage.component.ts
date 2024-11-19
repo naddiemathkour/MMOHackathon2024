@@ -54,9 +54,6 @@ export class CreatestoriespageComponent implements OnInit {
       sprintId = data?.pop()?.sprinttestplan_id;
     });
     if (!sprintId) {
-      console.error(
-        "Server error: Failed to validate sprinttestplan_id"
-      );
       return;
     }
     const payload: IStoryTestPlan = {
@@ -72,7 +69,6 @@ export class CreatestoriespageComponent implements OnInit {
       let storyTestPlanId;
       await this._supabase.getStoryTestPlanId().then((data) => storyTestPlanId = data?.pop()?.storytestplan_id);
       if (!storyTestPlanId) {
-        console.error("Server error: Failed to validate storytestplan_id")
         return;
       }
       for (const t of data) {
@@ -107,7 +103,6 @@ export class CreatestoriespageComponent implements OnInit {
 
       this.createStory = false;
     }
-    console.log('Omitted: ', this.omittedTests)
   }
 
   generate() {
@@ -117,7 +112,6 @@ export class CreatestoriespageComponent implements OnInit {
         for (const test of data) {
           this.generatedTests.push({expected_result: test.expected_result, scenario: test?.scenario} as ITest)
         }
-        console.log('Gen Test: ', this.generatedTests);
       });
     }
     else {
@@ -126,7 +120,6 @@ export class CreatestoriespageComponent implements OnInit {
   }
 
   submitStory() {
-    console.log(this.storyForm.valid)
     if (this.storyForm.valid === true) {
       //this.submit.emit(this.generatedTests);
     }

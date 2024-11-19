@@ -52,10 +52,8 @@ export class OpenaiService {
     try {
       respJSON = JSON.parse(String(responseString));
     } catch (error) {
-      console.error("Error parsing JSON response: ", error);
       return null;
     }
-    console.log(respJSON)
     return respJSON;
   };
 }
