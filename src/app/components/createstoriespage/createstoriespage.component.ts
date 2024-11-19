@@ -21,7 +21,6 @@ import { SupabaseService } from '../../services/supabase.service';
 })
 
 export class CreatestoriespageComponent implements OnInit {
-  
   generatedTests: ITest[] = [];
   omittedTests: number[] = []
   storyForm!: FormGroup;
