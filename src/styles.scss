@@ -32,8 +32,7 @@
 }
 
 a {
-  font: var(--a);
-  color: var(--color-font);
+  color: blue;
   text-decoration: none;
   padding: var(--padding);
   margin: var(--margin-thin);
@@ -41,8 +40,7 @@ a {
   
   &:hover {
     cursor: pointer;
-    border: 1px solid #ccc;
-    box-shadow: var(--shadow);
+    text-decoration: underline;
   }
 }
 
@@ -54,6 +52,7 @@ a {
 
 .accordion-body {
   padding: var(--padding);
+  box-shadow: none !important;
 }
 
 .accordion-item {
@@ -65,8 +64,6 @@ a {
 }
 
 .accordion-item-header {
-  background-color: var(--color-secondary);
-  padding: var(--padding);
 }
 
 .action-button {
@@ -128,5 +125,9 @@ main {
   margin: auto auto; 
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+table {
+  box-shadow: none !important;
+}
+
+//html, body { height: 100%; }
+//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
