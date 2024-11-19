@@ -55,6 +55,18 @@ export class SupabaseService {
     return result;
   }
 
+  async saveTestStatus(data: any, test_id: number): Promise<any> {
+    const { data: result, error } = await this.supabase
+        .from('tests')
+        .update({ test_status : data }) // Replace `column_name` and `new_value` with the actual column and value you want to update
+        .eq('test_id', test_id); // Replace `test_id` with the actual test ID you want to match
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      return result;
+  }
+
   async getStoryTestPlanId() {
     const { data, error } = await this.supabase
     .from('storytestplans')
