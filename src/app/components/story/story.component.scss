@@ -1,5 +1,7 @@
 mat-slide-toggle {
     display: block;
-    margin: 20px 0;
-  }
-  
+    margin: auto auto;
+}
+::ng-deep .mdc-switch__track {
+  width: 50px !important;
+}

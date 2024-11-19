@@ -7,7 +7,6 @@
             role="button"
             tabindex="0"
             [attr.aria-expanded]="accordionItem.expanded"
-            [attr.aria-controls]="'accordion-body-' + index"
             [expanded] = "true">
             <div class="accordion-item-header" (click)="accordionItem.toggle()">
                 <table mat-table [dataSource]="[storyplan]" class="mat-elevation-z8">
