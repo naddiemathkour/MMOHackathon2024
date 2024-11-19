@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SupabaseEnv } from '../env/environment';
 import { SupabaseClient, createClient } from '@supabase/supabase-js'
+import { IStoryTestPlan } from '../interfaces/storytestplan.interface';
+import { ITest } from '../interfaces/test.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +16,10 @@ export class SupabaseService {
   async getSprintStoryData() {
     //const resp = await this.supabase.from('sprinttestplans').select('*');
     const { data, error } = await this.supabase .from('sprinttestplans').select('*, storytestplans(*)');
-    console.log('data from db is: ', data);
+    //console.log('data from db is: ', data);
     if (error) { 
       console.error("Error executing query:", error); 
-    } else { 
-      return data; 
+      return null;
     }
     return data;
   }
@@ -26,12 +27,55 @@ export class SupabaseService {
   async getStoryTestData() {
     //const resp = await this.supabase.from('sprinttestplans').select('*');
     const { data, error } = await this.supabase .from('storytestplans').select('*, storytestplans(*)');
-    console.log('data from db is: ', data);
+    //console.log('data from db is: ', data);
     if (error) { 
       console.error("Error executing query:", error); 
-    } else { 
-      return data; 
+    }  
+    return data;
+  }
+
+  async getStoryTestPlanId() {
+    const { data, error } = await this.supabase
+    .from('storytestplans')
+    .select('storytestplan_id')
+    .order("storytestplan_id", {ascending: false})
+    .limit(1)
+
+    if (error) {
+      console.error(error);
+      return null;
+    } else {
+      return data;
+    }
+  }
+
+  async getSprintTestPlanId() {
+    const { data, error } = await this.supabase
+    .from('sprinttestplans')
+    .select('sprinttestplan_id')
+    .order('sprinttestplan_id', {ascending: false})
+    .limit(1);
+
+    if (error) {
+      console.error(error);
+      return null;
     }
     return data;
+  }
+
+  async postStoryTestData(data: IStoryTestPlan) {
+    const { error } = await this.supabase
+    .from('storytestplans')
+    .insert(data)
+
+    console.log(error);
+  }
+
+  async postTestData(data: ITest) {
+    const payload = {
+      ...data
+    };
+    
+    return await this.supabase.from('tests').insert(payload);
   }
 }

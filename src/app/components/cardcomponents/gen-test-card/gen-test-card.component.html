@@ -4,8 +4,8 @@
 <p>{{test.expected_result}}</p>
 <div class="button-container">
   @if (isIncluded) {
-    <button class="cancel-button" (click)="include(false)">Exclude</button>
+    <button class="cancel-button" (click)="include(false)" type="button">Exclude</button>
   } @else {
-    <button class="action-button" (click)="include(true)">Include</button>
+    <button class="action-button" (click)="include(true)" type="button">Include</button>
   }
 </div>
