@@ -1,10 +1,10 @@
 export interface ITest {
-  test_id: number;
+  test_id?: number;
   storytestplan_id: number;
-  created_at: Date;
-  updated_at: Date;
-  tested_at: Date;
+  created_at?: Date;
+  updated_at?: Date;
+  tested_at?: Date;
   scenario: string;
   expected_result: string;
-  test_status: string;
+  test_status?: string;
 }

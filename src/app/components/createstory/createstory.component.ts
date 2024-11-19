@@ -18,8 +18,9 @@ import { SupabaseService } from '../../services/supabase.service';
 export class CreatestoryComponent implements OnInit {
   @Output() submit: EventEmitter<ITest[]> = new EventEmitter<ITest[]>();
   
+  acceptedTests: ITest[] = [];
   generatedTests: ITest[] = [];
-  omittedTests: number[] = []
+  omittedTestIndicies: number[] = []
 
   storyForm!: FormGroup;
 
@@ -33,15 +34,17 @@ export class CreatestoryComponent implements OnInit {
     })
   }
 
-  addTest(event: boolean, index: number) {
+  toggleTest(event: boolean, index: number) {
     console.log(event, index);
+    // Removing
     if (event === false) {
-      this.omittedTests.push(index);
+      this.omittedTestIndicies.push(index);
     }
+    // Re-Adding
     else {
-      this.omittedTests.splice(this.omittedTests.indexOf(index), 1);
+      this.omittedTestIndicies.splice(this.omittedTestIndicies.indexOf(index), 1);
     }
-    console.log('Omitted: ', this.omittedTests)
+    console.log('Omitted: ', this.omittedTestIndicies)
   }
 
   generate() {
@@ -51,7 +54,6 @@ export class CreatestoryComponent implements OnInit {
         for (const test of data) {
           this.generatedTests.push({expected_result: test.expected_result, scenario: test?.scenario} as ITest)
         }
-        console.log('Gen Test: ', this.generatedTests);
       });
     }
     else {
@@ -62,7 +64,11 @@ export class CreatestoryComponent implements OnInit {
   submitStory() {
     console.log(this.storyForm.valid)
     if (this.storyForm.valid === true) {
-      this.submit.emit(this.generatedTests);
+      for (let i = 0; i < this.generatedTests.length; i++) {
+        if (this.omittedTestIndicies.includes(i)) continue;
+        this.acceptedTests.push(this.generatedTests[i]);
+      }
+      this.submit.emit(this.acceptedTests);
     }
   }
 
