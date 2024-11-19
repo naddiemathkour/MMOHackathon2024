@@ -3,6 +3,8 @@ import { OpenaiService } from '../../services/openai.service';
 import { SupabaseService } from '../../services/supabase.service';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import {MatTableModule} from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 export interface PeriodicElement {
   sprintId: number;
@@ -34,45 +36,75 @@ export interface SprintPlan {
   start_date: string;
   end_date: string;
   completed_date: string;
+  storytestplans: any[];
+}
+
+export interface StoryTestPlan {
+  storytestplan_id: number;
+  jira_id: string;
+  //percentComplete: number;
+  //status: string;
+  story_summary: string;
+  execution_count: number;
+  test_count: number;
+  passed_test_count: number;
+  test_status: string;
+  completed_date: string;
 }
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CdkAccordionModule, MatTableModule],
+  imports: [CdkAccordionModule, MatTableModule, MatIconModule, CommonModule],
   providers: [OpenaiService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   text:   string = '';
-  items:  string[] = ['1', '2', '3'];
+  items: SprintPlan[] = [];
   displayedColumns: string[] = ['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date'];
-  dataSource: any;
   testPlanDisplayColumn: string[] = ['storytestplan_id', 'jira_id', 'story_summary', 'execution_count', 'test_count', 'passed_test_count', 'testing_status', 'completed_date'];
-  testDataSource: any;
 
   constructor(private _ai: OpenaiService, private _supabase: SupabaseService) { }
 
   async ngOnInit(): Promise<void> {
-    const data = await this._supabase.testDbConn();
-    this.dataSource = data;
-    this.mapDataForUser(this.dataSource);
+    const data = await this._supabase.getSprintStoryData();
+    this.mapDataForUser(data);
+
   }
 
-  async click(): Promise<void> {
-    this._ai.tempConnTest().subscribe((data) => {
-      this.text = data.choices[0]?.message.content || '';
-    });
-  }
 
   mapDataForUser(data: any){
     if(data !== null){
       const UPDATED_DATA: SprintPlan[] = []; 
       data.forEach((item: any) => { 
-        UPDATED_DATA.push({ sprinttestplan_id: item.sprinttestplan_id, sprint_title: item.sprint_title, start_date: item.start_date, end_date: item.end_date, completed_date: item.completed_date }); 
+        UPDATED_DATA.push({ 
+          sprinttestplan_id: item.sprinttestplan_id, 
+          sprint_title: item.sprint_title, 
+          start_date: item.start_date, 
+          end_date: item.end_date, 
+          completed_date: item.completed_date,
+          storytestplans: item.storytestplans
+        }); 
       });
+      this.items = UPDATED_DATA;
+      console.log('updated_data is: ', UPDATED_DATA);
+
+      /*const UPDATED_TEST_DATA: StoryTestPlan[] = [];
+      data.storytestplans((item: any) => {
+        UPDATED_TEST_DATA.push({ 
+          storytestplan_id: item.storytestplan_id,
+          jira_id: item.jira_id,
+          story_summary: item.story_summary,
+          execution_count: item.execution_count,
+          test_count: item.test_count,
+          passed_test_count: item.passed_test_count,
+          test_status: item.test_status,
+          completed_date: item.completed_date,
+        }); 
+      })*/
     }
   }
 }

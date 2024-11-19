@@ -1,17 +1,4 @@
 <main>
-
-    <p>test works!</p>
-    <button (click)="click()" class="create-button">Create</button>
-    <br>
-    <button class="action-button">Submit</button>
-    <br>
-    <button class="cancel-button">Cancel</button>
-    @if(text) {
-      <div class="gold-outline">{{text}}</div>
-    }
-    <br>
-    <a href="#">Home</a>
-  
     @for (item of items; track item; let index = $index) {
       <cdk-accordion class="accordion-container">
           <cdk-accordion-item
@@ -23,68 +10,116 @@
             [attr.aria-expanded]="accordionItem.expanded"
             [attr.aria-controls]="'accordion-body-' + index">
             <div class="accordion-item-header" (click)="accordionItem.toggle()">
-              <p class="accordion-item-description">
-              List item: {{item}} | Click to {{ accordionItem.expanded ? 'close' : 'open'}}
-              </p> 
+                <table mat-table [dataSource]="[item]" class="mat-elevation-z8">
+                    
+                    <ng-container matColumnDef="sprinttestplan_id"> 
+                        <th mat-header-cell *matHeaderCellDef> <strong>Sprint Test Plan</strong> </th> 
+                        <td mat-cell *matCellDef="let item"> {{item.sprinttestplan_id}} </td> 
+                    </ng-container> 
+
+                    <ng-container matColumnDef="sprint_title"> 
+                        <th mat-header-cell *matHeaderCellDef> <strong>Sprint Title</strong> </th> 
+                        <td mat-cell *matCellDef="let item"> {{ item.sprint_title }} </td> 
+                    </ng-container> 
+
+                    <ng-container matColumnDef="start_date"> 
+                        <th mat-header-cell *matHeaderCellDef> <strong>Start Date</strong> </th> 
+                        <td mat-cell *matCellDef="let item"> {{ item.start_date | date: 'medium' }} </td> 
+                    </ng-container> 
+
+                    <ng-container matColumnDef="end_date"> 
+                        <th mat-header-cell *matHeaderCellDef> <strong>End Date</strong> </th> 
+                        <td mat-cell *matCellDef="let item"> {{ item.end_date | date: 'medium' }} </td> 
+                    </ng-container> 
+
+                    <ng-container matColumnDef="completed_date"> 
+                        <th mat-header-cell *matHeaderCellDef> <strong>Completed Date</strong> </th> 
+                        <td mat-cell *matCellDef="let item"> {{ item.completed_date | date: 'medium' }} </td> 
+                    </ng-container> 
+
+                    <ng-container matColumnDef="icon"> 
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-icon *ngIf="!accordionItem.expanded">arrow_drop_down</mat-icon>
+                            <mat-icon *ngIf="accordionItem.expanded">arrow_drop_up</mat-icon>
+                        </th> 
+                        <td mat-cell *matCellDef="let item">
+                        </td> 
+                    </ng-container> 
+
+                    <tr 
+                      mat-header-row 
+                      *matHeaderRowDef="['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'icon']">
+                    </tr> 
+
+                    <tr 
+                      mat-row 
+                      *matRowDef=
+                      "let row; columns: ['sprinttestplan_id', 'sprint_title', 'start_date', 'end_date', 'completed_date', 'icon']">
+                    </tr>
+                </table>
             </div>
+
+            <!-- accordion body -->
             <div
               class="accordion-body"
               role="region"
               [style.display]="accordionItem.expanded ? '' : 'none'"
-              [attr.id]="'accordion-body-' + index"
-              [attr.aria-labelledby]="'accordion-header-' + index">
-              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+              [attr.id]="'accordion-body'"
+              [attr.aria-labelledby]="'accordion-header'">
 
-                <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-              
+            <table mat-table [dataSource]="item.storytestplans" class="mat-elevation-z8">
                 <!-- Position Column -->
-                <ng-container matColumnDef="sprinttestplan_id">
-                  <th mat-header-cell *matHeaderCellDef> STP ID </th>
-                  <td mat-cell *matCellDef="let element"> {{element.sprinttestplan_id}} </td>
+                <ng-container matColumnDef="storytestplan_id">
+                    <th mat-header-cell *matHeaderCellDef> STP ID </th>
+                    <td mat-cell *matCellDef="let plan"> {{ plan.storytestplan_id }} </td>
                 </ng-container>
-              
+
                 <!-- Name Column -->
-                <ng-container matColumnDef="sprint_title">
-                  <th mat-header-cell *matHeaderCellDef> Sprint # - Team </th>
-                  <td mat-cell *matCellDef="let element"> {{element.sprint_title}} </td>
+                <ng-container matColumnDef="jira_id">
+                    <th mat-header-cell *matHeaderCellDef> Story ID </th>
+                    <td mat-cell *matCellDef="let plan">
+                        <a href="/stories/list">{{ plan.jira_id }}</a>
+                    </td>
                 </ng-container>
-              
-                <!-- Weight Column -->
-                <!--<ng-container matColumnDef="complete">
-                  <th mat-header-cell *matHeaderCellDef> % Complete </th>
-                  <td mat-cell *matCellDef="let element"> {{element.complete}} </td>
+
+                <ng-container matColumnDef="story_summary">
+                    <th mat-header-cell *matHeaderCellDef> Story Summary </th>
+                    <td mat-cell *matCellDef="let plan"> {{ plan.story_summary }} </td>
                 </ng-container>
-              
-                <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef> Status </th>
-                  <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-                </ng-container>-->
 
-                <ng-container matColumnDef="start_date">
-                    <th mat-header-cell *matHeaderCellDef> Start Date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.start_date}} </td>
-                  </ng-container>
+                <ng-container matColumnDef="test_count">
+                    <th mat-header-cell *matHeaderCellDef> Test Count </th>
+                    <td mat-cell *matCellDef="let plan"> {{ plan.test_count }} </td>
+                </ng-container>
 
-                <ng-container matColumnDef="end_date">
-                    <th mat-header-cell *matHeaderCellDef> End Date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.end_date}} </td>
+                <ng-container matColumnDef="execution_count">
+                    <th mat-header-cell *matHeaderCellDef> Executed Tests </th>
+                    <td mat-cell *matCellDef="let plan"> {{ plan.execution_count }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="passed_test_count">
+                    <th mat-header-cell *matHeaderCellDef> Completed Tests </th>
+                    <td mat-cell *matCellDef="let plan"> {{ plan.passed_test_count }} / {{ plan.test_count }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="testing_status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let plan"> {{ plan.testing_status.toUpperCase() }} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="completed_date">
                     <th mat-header-cell *matHeaderCellDef> Completed Date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.completed_date}} </td>
+                    <td mat-cell *matCellDef="let plan"> {{ (plan.completed_date) ? plan.completed_date : 'In Progress' }} </td>
                 </ng-container>
-              
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Header Row -->
+                <tr mat-header-row *matHeaderRowDef="testPlanDisplayColumn"></tr>
+                <!-- Data Rows -->
+                <tr mat-row *matRowDef="let row; columns: testPlanDisplayColumn;"></tr>
               </table>
-              
-              
             </div>
           </cdk-accordion-item>
       </cdk-accordion>
     }
-  
   </main>
   

@@ -10,10 +10,18 @@ import { CreatestoryComponent } from '../createstory/createstory.component';
   styleUrl: './createstoriespage.component.scss'
 })
 export class CreatestoriespageComponent {
-  storyTestPlans: IStoryTestPlan[] = [{} as IStoryTestPlan, {} as IStoryTestPlan];
+  storyTestPlans: IStoryTestPlan[] = [];
   createStory: boolean = false;
 
-  create(): void {
+  addStory(): void {
     this.createStory = true;
+  }
+
+  submit(event: any): void {
+    if (this.createStory === true) {
+      console.log('posting stories');
+      console.log(event);
+      this.createStory = false;
+    }
   }
 }
