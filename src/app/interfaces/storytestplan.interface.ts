@@ -1,3 +1,5 @@
+import { ITestPlan } from "./testplan.interface";
+
 export interface IStoryTestPlan {
   storytestplan_id?: number;
   created_at?: Date;
@@ -8,5 +10,6 @@ export interface IStoryTestPlan {
   execution_count?: number;
   test_count: number;
   passed_test_count?: number;
-  testing_status?: string;
+  test_status?: string;
+  tests: ITestPlan[];
 }

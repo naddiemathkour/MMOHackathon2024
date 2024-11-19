@@ -1,12 +1,39 @@
-<main>
-  <span>Sprint Test Plan Id</span>
-  <div class="story-list-container">
-    @for(stp of storyTestPlans; track stp.storytestplan_id; let idx = $index) {
-    <p>{{idx + 1}}: Story {{ stp.jira_id }}</p>
-    }
-    @if (createStory) {
-      <app-createstory (submit)="submit($event)"></app-createstory> 
-    }
-    <button class="create-button" (click)="addStory()" [disabled]="createStory">Add Story</button>
-  </div>
+<main class="main-container">
+  <mat-card class="card-container">
+    <mat-card-title>Sprint Test Plan Id</mat-card-title>
+    <mat-divider></mat-divider>
+    <div class="story-list-container">
+      <form [formGroup]="storyForm" class="story-form">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Jira Id</mat-label>
+          <input matInput id="jira_id" formControlName="jira_id" placeholder="Enter Jira Id" required>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Story Acceptance Criteria</mat-label>
+          <input matInput id="jira_ac" formControlName="jira_ac" placeholder="Enter Acceptance Criteria" required>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Additional Instructions</mat-label>
+          <input matInput id="additional_instructions" formControlName="additional_instructions" placeholder="Enter Additional Instructions">
+        </mat-form-field>
+        
+        <div class="button-container">
+          <button mat-raised-button color="warn" type="button" (click)="goBack()">Back</button>
+          <button mat-raised-button color="primary" type="button" (click)="generate()">
+            {{ (generatedTests.length > 0) ? 'Regenerate' : 'Generate' }} Tests
+          </button>
+        </div>
+        
+        <div *ngFor="let test of generatedTests; let idx = index">
+          <app-gen-test-card [test]="test" (included)="addTest($event, idx)"></app-gen-test-card>
+        </div>
+        
+        <div *ngIf="generatedTests.length > 0" class="button-container">
+          <button mat-raised-button color="accent" type="button" (click)="submitStory()">Commit Story</button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
 </main>

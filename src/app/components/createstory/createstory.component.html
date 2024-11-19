@@ -1,28 +1,32 @@
-<form [formGroup]="storyForm">
-  <div>
-    <label for="jira_id">Jira Id: </label>
-    <input id="jira_id" type="text" formControlName="jira_id" required>
-  </div>
+<form [formGroup]="storyForm" class="story-form">
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Jira Id</mat-label>
+    <input matInput id="jira_id" formControlName="jira_id" placeholder="Enter Jira Id" required>
+  </mat-form-field>
 
-  <div>
-    <label for="jira_ac">Story Acceptance Criteria:</label>
-    <input id="jira_ac" type="text" formControlName="jira_ac" required>
-  </div>
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Story Acceptance Criteria</mat-label>
+    <input matInput id="jira_ac" formControlName="jira_ac" placeholder="Enter Acceptance Criteria" required>
+  </mat-form-field>
 
-  <div>
-    <label for="additional_instructions">Additional Instructions:</label>
-    <input id="additional_instructions" type="text" formControlName="additional_instructions">
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Additional Instructions</mat-label>
+    <input matInput id="additional_instructions" formControlName="additional_instructions" placeholder="Enter Additional Instructions">
+  </mat-form-field>
+  
+  <div class="button-container">
+    <button mat-raised-button color="warn" type="button" (click)="goBack()">Back</button>
+    <button mat-raised-button color="primary" type="button">Add to Sprint</button>
+    <button mat-raised-button color="primary" type="button" (click)="generate()">
+      {{ (generatedTests.length > 0) ? 'Regenerate' : 'Generate' }} Tests
+    </button>
   </div>
   
-  <button class="action-button" type="button" (click)="generate()">
-    {{ (generatedTests.length > 0) ? 'Regenerate' : 'Generate' }} Tests
-  </button>
-  <br>
-  @for (test of generatedTests; track test.test_id; let idx = $index) {
-    <app-gen-test-card [test]="test" (included)="toggleTest($event, idx)"></app-gen-test-card>
-  }
+  <div *ngFor="let test of generatedTests; let idx = index">
+    <app-gen-test-card [test]="test" (included)="addTest($event, idx)"></app-gen-test-card>
+  </div>
   
-  @if (generatedTests.length > 0) {
-    <button class="action-button" (click)="submitStory()" type="button">Commit Story</button>
-  }
+  <div *ngIf="generatedTests.length > 0" class="button-container">
+    <button mat-raised-button color="accent" type="button" (click)="submitStory()">Commit Story</button>
+  </div>
 </form>
