@@ -14,7 +14,6 @@
   
   <div class="button-container">
     <button class="cancel-button" (click)="goBack()">Back</button>
-    <button class="action-button" type="button">Add to Sprint</button>
     <button class="create-button" type="button" (click)="generate()">
       {{ (generatedTests.length > 0) ? 'Regenerate' : 'Generate' }} Tests
     </button>
@@ -29,6 +28,6 @@
   </div>
   
   <div *ngIf="generatedTests.length > 0" class="button-container">
-    <button mat-raised-button color="accent" type="button" (click)="submitStory()">Commit Story</button>
+    <button class="action-button" type="button" (click)="submitStory()">Commit Story</button>
   </div>
 </form>

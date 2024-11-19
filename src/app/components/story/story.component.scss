@@ -1,0 +1,7 @@
+mat-slide-toggle {
+    display: block;
+    margin: auto auto;
+}
+::ng-deep .mdc-switch__track {
+  width: 50px !important;
+}

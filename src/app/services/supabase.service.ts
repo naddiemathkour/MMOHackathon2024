@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Pipe } from '@angular/core';
 import { SupabaseEnv } from '../env/environment';
 import { SupabaseClient, createClient } from '@supabase/supabase-js'
 import { IStoryTestPlan } from '../interfaces/storytestplan.interface';
@@ -14,7 +14,7 @@ export class SupabaseService {
   }
 
   async getSprintStoryData() {
-    const { data, error } = await this.supabase .from('sprinttestplans').select('*, storytestplans(*)');
+    const { data, error } = await this.supabase .from('sprinttestplans').select('*, storytestplans(*)').order('sprinttestplan_id', { ascending: false });
     if (error) { 
       console.error("Error executing query:", error); 
       return null;
@@ -22,8 +22,8 @@ export class SupabaseService {
     return data;
   }
 
-  async getStoryTestData(storytestplan_id: string) {
-    const { data, error } = await this.supabase .from('storytestplans').select('*, tests(*)').eq('storytestplan_id', storytestplan_id);;
+  async getStoryTestData(storytestplan_id: number) {
+    const { data, error } = await this.supabase .from('tests').select('*').eq('storytestplan_id', storytestplan_id);
     console.log('data from db is for story is: ', data);
 
     if (error) { 
@@ -55,6 +55,18 @@ export class SupabaseService {
     return result;
   }
 
+  async saveTestStatus(data: any, test_id: number): Promise<any> {
+    const { data: result, error } = await this.supabase
+        .from('tests')
+        .update({ test_status : data }) // Replace `column_name` and `new_value` with the actual column and value you want to update
+        .eq('test_id', test_id); // Replace `test_id` with the actual test ID you want to match
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      return result;
+  }
+
   async getStoryTestPlanId() {
     const { data, error } = await this.supabase
     .from('storytestplans')
@@ -68,6 +80,19 @@ export class SupabaseService {
     } else {
       return data;
     }
+  }
+
+  async getStoryTestPlanById(id: number) {
+    const { data, error } = await this.supabase
+    .from('storytestplans')
+    .select('*')
+    .eq("storytestplan_id", id)
+    .limit(1);
+
+    if (error) {
+      console.error(error);
+    }
+    return data;
   }
 
   async getSprintTestPlanId() {
@@ -85,11 +110,14 @@ export class SupabaseService {
   }
 
   async postStoryTestData(data: IStoryTestPlan) {
+    console.log('Printing: ', data)
     const { error } = await this.supabase
     .from('storytestplans')
     .insert(data)
 
-    console.log(error);
+    if (error) {
+      console.error(error);
+    }
   }
 
   async postTestData(data: ITest) {
