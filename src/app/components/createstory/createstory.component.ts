@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
 import { SupabaseService } from '../../services/supabase.service';
 import { IStoryTestPlan } from '../../interfaces/storytestplan.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createstory',
@@ -24,7 +25,7 @@ export class CreatestoryComponent implements OnInit {
   storyForm!: FormGroup;
   storyTestPlans: IStoryTestPlan[] = [];
 
-  constructor(private _fb: FormBuilder, private _ai: OpenaiService, private location: Location, private _supabase: SupabaseService) {}
+  constructor(private _fb: FormBuilder, private _ai: OpenaiService, private location: Location, private _supabase: SupabaseService, private router: Router) {}
 
   ngOnInit(): void {
     this.storyForm = this._fb.group({
@@ -35,7 +36,6 @@ export class CreatestoryComponent implements OnInit {
   }
 
   toggleTest(event: boolean, index: number) {
-    console.log(event, index);
     // Removing
     if (event === false) {
       this.omittedTestIndicies.push(index);
@@ -44,13 +44,13 @@ export class CreatestoryComponent implements OnInit {
     else {
       this.omittedTestIndicies.splice(this.omittedTestIndicies.indexOf(index), 1);
     }
-    console.log('Omitted: ', this.omittedTestIndicies)
   }
 
   generate() {
     if (this.storyForm.valid === true) {
       const fields = this.storyForm.value;
       this._ai.generateTestsFromAC(fields.jira_ac).then((data) => {
+        if (data)
         for (const test of data) {
           this.generatedTests.push({expected_result: test.expected_result, scenario: test?.scenario} as ITest)
         }
@@ -67,9 +67,6 @@ export class CreatestoryComponent implements OnInit {
       sprintId = data?.pop()?.sprinttestplan_id;
     });
     if (!sprintId) {
-      console.error(
-        "Server error: Failed to validate sprinttestplan_id"
-      );
       return;
     }
     const payload: IStoryTestPlan = {
@@ -84,11 +81,9 @@ export class CreatestoryComponent implements OnInit {
       let storyTestPlanId;
       await this._supabase.getStoryTestPlanId().then((data) => storyTestPlanId = data?.pop()?.storytestplan_id);
       if (!storyTestPlanId) {
-        console.error("Server error: Failed to validate storytestplan_id")
         return;
       }
       for (const t of data) {
-        console.log('t: ', t)
         this._supabase.postTestData(
         {
           expected_result: t.expected_result,
@@ -118,7 +113,6 @@ export class CreatestoryComponent implements OnInit {
   }
 
   submitStory() {
-    console.log(this.storyForm.valid)
     if (this.storyForm.valid === true) {
       for (let i = 0; i < this.generatedTests.length; i++) {
         if (this.omittedTestIndicies.includes(i)) continue;
@@ -126,6 +120,7 @@ export class CreatestoryComponent implements OnInit {
       }
       this.submit(this.acceptedTests);
     }
+    this.router.navigate(['']);
   }
 
   goBack(): void { this.location.back(); }
