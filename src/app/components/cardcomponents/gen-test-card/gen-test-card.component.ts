@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ITest } from '../../../interfaces/test.interface';
 
 @Component({
   selector: 'app-gen-test-card',
@@ -9,6 +10,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class GenTestCardComponent {
   @Output() included: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() test!: ITest;
 
   isIncluded: boolean = true;
 

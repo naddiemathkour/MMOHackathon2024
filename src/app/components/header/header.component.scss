@@ -3,9 +3,11 @@
   height: 100px;
 }
 
-.logo {
+img {
+  height: 90px;
+  width: auto;
   margin: auto auto;
-  
+
   &:hover {
     cursor: pointer;
   }

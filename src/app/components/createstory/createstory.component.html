@@ -19,7 +19,7 @@
   </button>
   <br>
   @for (test of generatedTests; track test.test_id; let idx = $index) {
-    <app-gen-test-card (included)="addTest($event, idx)"></app-gen-test-card>
+    <app-gen-test-card [test]="test" (included)="addTest($event, idx)"></app-gen-test-card>
   }
   
   @if (generatedTests.length > 0) {
