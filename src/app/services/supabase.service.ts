@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Pipe } from '@angular/core';
 import { SupabaseEnv } from '../env/environment';
 import { SupabaseClient, createClient } from '@supabase/supabase-js'
 import { IStoryTestPlan } from '../interfaces/storytestplan.interface';
@@ -22,8 +22,8 @@ export class SupabaseService {
     return data;
   }
 
-  async getStoryTestData(storytestplan_id: string) {
-    const { data, error } = await this.supabase .from('storytestplans').select('*, tests(*)').eq('storytestplan_id', storytestplan_id);;
+  async getStoryTestData(storytestplan_id: number) {
+    const { data, error } = await this.supabase .from('tests').select('*').eq('storytestplan_id', storytestplan_id);
     console.log('data from db is for story is: ', data);
 
     if (error) { 
@@ -70,6 +70,19 @@ export class SupabaseService {
     }
   }
 
+  async getStoryTestPlanById(id: number) {
+    const { data, error } = await this.supabase
+    .from('storytestplans')
+    .select('*')
+    .eq("storytestplan_id", id)
+    .limit(1);
+
+    if (error) {
+      console.error(error);
+    }
+    return data;
+  }
+
   async getSprintTestPlanId() {
     const { data, error } = await this.supabase
     .from('sprinttestplans')
@@ -85,11 +98,14 @@ export class SupabaseService {
   }
 
   async postStoryTestData(data: IStoryTestPlan) {
+    console.log('Printing: ', data)
     const { error } = await this.supabase
     .from('storytestplans')
     .insert(data)
 
-    console.log(error);
+    if (error) {
+      console.error(error);
+    }
   }
 
   async postTestData(data: ITest) {

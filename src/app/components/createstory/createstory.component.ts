@@ -6,6 +6,8 @@ import { OpenaiService } from '../../services/openai.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
+import { SupabaseService } from '../../services/supabase.service';
+import { IStoryTestPlan } from '../../interfaces/storytestplan.interface';
 
 @Component({
   selector: 'app-createstory',
@@ -15,15 +17,14 @@ import { Location } from '@angular/common';
   styleUrl: './createstory.component.scss'
 })
 export class CreatestoryComponent implements OnInit {
-  @Output() submit: EventEmitter<ITest[]> = new EventEmitter<ITest[]>();
-  
   acceptedTests: ITest[] = [];
   generatedTests: ITest[] = [];
   omittedTestIndicies: number[] = []
 
   storyForm!: FormGroup;
+  storyTestPlans: IStoryTestPlan[] = [];
 
-  constructor(private _fb: FormBuilder, private _ai: OpenaiService, private location: Location) {}
+  constructor(private _fb: FormBuilder, private _ai: OpenaiService, private location: Location, private _supabase: SupabaseService) {}
 
   ngOnInit(): void {
     this.storyForm = this._fb.group({
@@ -60,6 +61,62 @@ export class CreatestoryComponent implements OnInit {
     }
   }
 
+  async createStoryTestPlan(data: any): Promise<void> {
+    let sprintId;
+    await this._supabase.getSprintTestPlanId().then((data) => {
+      sprintId = data?.pop()?.sprinttestplan_id;
+    });
+    if (!sprintId) {
+      console.error(
+        "Server error: Failed to validate sprinttestplan_id"
+      );
+      return;
+    }
+    const payload: IStoryTestPlan = {
+      sprinttestplan_id: sprintId,
+      jira_id: 'test',
+      test_count: data.length,
+    } as IStoryTestPlan
+    await this._supabase.postStoryTestData(payload);
+  }
+
+  async createTests(data: any) {
+      let storyTestPlanId;
+      await this._supabase.getStoryTestPlanId().then((data) => storyTestPlanId = data?.pop()?.storytestplan_id);
+      if (!storyTestPlanId) {
+        console.error("Server error: Failed to validate storytestplan_id")
+        return;
+      }
+      for (const t of data) {
+        console.log('t: ', t)
+        this._supabase.postTestData(
+        {
+          expected_result: t.expected_result,
+          scenario: t.scenario,
+          storytestplan_id: storyTestPlanId
+        } as ITest)
+      }
+  }
+
+  async updateStoryTestPlans(id: number) {
+    await this._supabase.getStoryTestPlansBySprintTestPlanId(id).then((data) => {
+      if (!data) return;
+      this.storyTestPlans = [...data];
+    });
+  }
+
+  async submit(event: any): Promise<void> {
+    await this.createStoryTestPlan(event); 
+    await this.createTests(event);
+
+    let id;
+    await this._supabase.getSprintTestPlanId().then((data) => id = data?.pop()?.sprinttestplan_id)
+
+    if (id) {
+      await this.updateStoryTestPlans(id);
+    }
+  }
+
   submitStory() {
     console.log(this.storyForm.valid)
     if (this.storyForm.valid === true) {
@@ -67,7 +124,7 @@ export class CreatestoryComponent implements OnInit {
         if (this.omittedTestIndicies.includes(i)) continue;
         this.acceptedTests.push(this.generatedTests[i]);
       }
-      this.submit.emit(this.acceptedTests);
+      this.submit(this.acceptedTests);
     }
   }
 
