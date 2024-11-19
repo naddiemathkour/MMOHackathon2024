@@ -34,6 +34,19 @@ export class SupabaseService {
     return data;
   }
 
+  async getStoryTestPlansBySprintTestPlanId(stp_id: number) {
+    const { data, error } = await this.supabase
+    .from('storytestplans')
+    .select('*')
+    .eq("sprinttestplan_id", stp_id)
+
+    if (error) {
+      console.error(error);
+    }
+
+    return data;
+  }
+
   async getStoryTestPlanId() {
     const { data, error } = await this.supabase
     .from('storytestplans')

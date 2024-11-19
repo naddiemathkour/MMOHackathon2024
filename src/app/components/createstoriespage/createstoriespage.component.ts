@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IStoryTestPlan } from '../../interfaces/storytestplan.interface';
 import { ITest } from '../../interfaces/test.interface';
 import { CreatestoryComponent } from '../createstory/createstory.component';
@@ -11,11 +11,21 @@ import { SupabaseService } from '../../services/supabase.service';
   templateUrl: './createstoriespage.component.html',
   styleUrl: './createstoriespage.component.scss'
 })
-export class CreatestoriespageComponent {
+export class CreatestoriespageComponent implements OnInit {
   storyTestPlans: IStoryTestPlan[] = [];
   createStory: boolean = false;
 
   constructor(private _supabase: SupabaseService) { }
+
+  async ngOnInit(): Promise<void> {
+
+      let id;
+      await this._supabase.getSprintTestPlanId().then((data) => id = data?.pop()?.sprinttestplan_id)
+
+      if (id) {
+        await this.updateStoryTestPlans(id);
+      }
+  }
 
   addStory(): void {
     this.createStory = true;
@@ -58,12 +68,25 @@ export class CreatestoriespageComponent {
 
   }
 
+  async updateStoryTestPlans(id: number) {
+    await this._supabase.getStoryTestPlansBySprintTestPlanId(id).then((data) => {
+      if (!data) return;
+      this.storyTestPlans = [...data];
+    });
+  }
+
   async submit(event: any): Promise<void> {
     if (this.createStory === true) {
-      console.log('posting stories');
-      console.log([...event]);
       await this.createStoryTestPlan(event); 
       await this.createTests(event);
+
+      let id;
+      await this._supabase.getSprintTestPlanId().then((data) => id = data?.pop()?.sprinttestplan_id)
+
+      if (id) {
+        await this.updateStoryTestPlans(id);
+      }
+
       this.createStory = false;
     }
   }
