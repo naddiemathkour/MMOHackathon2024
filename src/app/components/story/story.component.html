@@ -1,14 +1,12 @@
 <main>
-    @for(storyplan of storyplans; track storyplan; let index = $index) {
       <cdk-accordion class="accordion-container">
           <cdk-accordion-item
             #accordionItem="cdkAccordionItem"
             class="accordion-item"
             role="button"
             tabindex="0"
-            [attr.id]="'accordion-header-' + index"
             [attr.aria-expanded]="accordionItem.expanded"
-            [attr.aria-controls]="'accordion-body-' + index">
+            >
             <div class="accordion-item-header" (click)="accordionItem.toggle()">
                 <table mat-table [dataSource]="[storyplan]" class="mat-elevation-z8">
                     
@@ -71,7 +69,7 @@
               [attr.id]="'accordion-body'"
               [attr.aria-labelledby]="'accordion-header'">
 
-                <table mat-table [dataSource]="storyplan.tests" class="mat-elevation-z8">
+                <table mat-table [dataSource]="tests" class="mat-elevation-z8">
                     
                     <ng-container matColumnDef="test_id">
                     <th mat-header-cell *matHeaderCellDef> Test Id </th>
@@ -115,6 +113,5 @@
             </div>
           </cdk-accordion-item>
       </cdk-accordion>
-      }
 </main>
   
