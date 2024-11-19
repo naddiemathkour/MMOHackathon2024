@@ -14,7 +14,7 @@
   --p:      normal 1rem/1 var(--ff);
   --a:      normal 1rem/1 var(--ff);
   --small:  normal 1rem/1 var(--ff);
-  --strong: bold 1rem/1 var(--ff);
+  --strong: bold 1.25rem/1 var(--ff);
 
   // Element Styling
   --h1: bold 3rem/1 var(--ff);
@@ -49,7 +49,7 @@ a {
 .accordion-container {
   display: block;
   border: 1px solid black;
-  margin: var(--margin-thin);
+  margin: var(--margin);
 }
 
 .accordion-body {
