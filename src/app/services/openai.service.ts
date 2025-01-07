@@ -20,26 +20,27 @@ export class OpenaiService {
 
   async generateTestsFromAC(criteria: string): Promise<ITest[]> {
     const resp = await this._openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "system",
-            content: 
-              `You are an assistant to QA testers working on software development projects.
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            `You are an assistant to QA testers working on software development projects.
               Your goal is to convert Acceptance Criteria text into individual tests and also to generate the most important
               edge case scenarios for the features being implemented. These tests should be returned in JSON form and contain a
               "scenario" and "expected_result" field that are both strings. The returned result should be a single array of tests.`
-          },
-          {
-            role: "user",
-            content: `Given the following Acceptance Criteria (in brackets) generate all tests from the criteria and
+        },
+        {
+          role: "user",
+          content: `Given the following Acceptance Criteria (in brackets) generate all tests from the criteria and
                       up to 10 edge case scenarios in addition to the acceptance criteria tests that may be missed by 
-                      the acceptance criteria instructions. [${criteria}]`
-          },
-        ],
-      });
+                      the acceptance criteria instructions. The scenario should detail steps a tester must
+                      take to execute the test.[${criteria}]`
+        },
+      ],
+    });
 
-      return this.cleanResponse(resp);
+    return this.cleanResponse(resp);
   }
 
 
